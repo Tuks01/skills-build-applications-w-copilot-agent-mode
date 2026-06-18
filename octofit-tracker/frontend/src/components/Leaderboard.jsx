@@ -18,7 +18,13 @@ function Leaderboard() {
   useEffect(() => {
     fetch(`${apiUrl}/leaderboard/`)
       .then((res) => res.json())
-      .then((data) => setEntries(Array.isArray(data) ? data : data.items || []))
+      .then((data) =>
+        setEntries(
+          Array.isArray(data)
+            ? data
+            : data.items || data.results || data.data || []
+        )
+      )
       .catch((err) => setError(err.message || 'Failed to load leaderboard'))
       .finally(() => setLoading(false))
   }, [])

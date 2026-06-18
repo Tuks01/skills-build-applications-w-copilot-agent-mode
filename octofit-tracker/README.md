@@ -35,6 +35,15 @@ npm run dev
 ```
 The frontend will be available at `http://localhost:5173`
 
+To use the Codespaces-hosted backend API, define `VITE_CODESPACE_NAME` in `octofit-tracker/frontend/.env.local`:
+
+```env
+VITE_CODESPACE_NAME=your-codespace-name
+```
+
+The frontend uses this variable to build API URLs like:
+`https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api`
+
 ### Backend Setup
 ```bash
 cd octofit-tracker/backend

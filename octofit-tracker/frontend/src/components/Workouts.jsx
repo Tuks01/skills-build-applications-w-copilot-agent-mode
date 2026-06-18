@@ -18,7 +18,13 @@ function Workouts() {
   useEffect(() => {
     fetch(`${apiUrl}/workouts/`)
       .then((res) => res.json())
-      .then((data) => setWorkouts(Array.isArray(data) ? data : data.items || []))
+      .then((data) =>
+        setWorkouts(
+          Array.isArray(data)
+            ? data
+            : data.items || data.results || data.data || []
+        )
+      )
       .catch((err) => setError(err.message || 'Failed to load workouts'))
       .finally(() => setLoading(false))
   }, [])

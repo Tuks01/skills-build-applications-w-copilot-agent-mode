@@ -18,7 +18,13 @@ function Users() {
   useEffect(() => {
     fetch(`${apiUrl}/users/`)
       .then((res) => res.json())
-      .then((data) => setUsers(Array.isArray(data) ? data : data.items || []))
+      .then((data) =>
+        setUsers(
+          Array.isArray(data)
+            ? data
+            : data.items || data.results || data.data || []
+        )
+      )
       .catch((err) => setError(err.message || 'Failed to load users'))
       .finally(() => setLoading(false))
   }, [])

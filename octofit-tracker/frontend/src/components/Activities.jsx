@@ -18,7 +18,13 @@ function Activities() {
   useEffect(() => {
     fetch(`${apiUrl}/activities/`)
       .then((res) => res.json())
-      .then((data) => setActivities(Array.isArray(data) ? data : data.items || []))
+      .then((data) =>
+        setActivities(
+          Array.isArray(data)
+            ? data
+            : data.items || data.results || data.data || []
+        )
+      )
       .catch((err) => setError(err.message || 'Failed to load activities'))
       .finally(() => setLoading(false))
   }, [])
