@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createActivity, listActivities, getActivityById } from '../controllers/activityController';
+import { createActivity, listActivities, getActivityById } from '../controllers/activityController.ts';
 
 const router = Router();
 

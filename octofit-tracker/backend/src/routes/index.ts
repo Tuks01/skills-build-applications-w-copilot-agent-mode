@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import healthRouter from './health';
-import usersRouter from './users';
-import activitiesRouter from './activities';
-import teamsRouter from './teams';
-import leaderboardRouter from './leaderboard';
-import workoutsRouter from './workouts';
+import healthRouter from './health.ts';
+import usersRouter from './users.ts';
+import activitiesRouter from './activities.ts';
+import teamsRouter from './teams.ts';
+import leaderboardRouter from './leaderboard.ts';
+import workoutsRouter from './workouts.ts';
 
 const router = Router();
 

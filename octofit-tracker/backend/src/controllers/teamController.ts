@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import { Team } from '../models/Team';
+import type { Request, Response } from 'express';
+import { Team } from '../models/Team.ts';
 
 export const listTeams = async (req: Request, res: Response) => {
   try {

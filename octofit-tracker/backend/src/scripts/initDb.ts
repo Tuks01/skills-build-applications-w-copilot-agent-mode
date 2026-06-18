@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import { User } from '../models/User.js';
-import { Team } from '../models/Team.js';
-import { Activity } from '../models/Activity.js';
+import { User } from '../models/User.ts';
+import { Team } from '../models/Team.ts';
+import { Activity } from '../models/Activity.ts';
 
 dotenv.config();
 

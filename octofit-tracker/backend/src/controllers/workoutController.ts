@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import { Workout } from '../models/Workout';
+import type { Request, Response } from 'express';
+import { Workout } from '../models/Workout.ts';
 
 export const listWorkouts = async (req: Request, res: Response) => {
   try {

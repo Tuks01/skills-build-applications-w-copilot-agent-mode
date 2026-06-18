@@ -1,13 +1,18 @@
-import express, { Express } from 'express';
+import express from 'express';
+import type { Express } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import apiRouter from './routes/index.js';
-import connectDatabase from './config/database.js';
+import apiRouter from './routes/index.ts';
+import connectDatabase from './config/database.ts';
 
 dotenv.config();
 
 const app: Express = express();
 const PORT = process.env.PORT || 8000;
+const CODESPACE_NAME = process.env.CODESPACE_NAME;
+const baseUrl = CODESPACE_NAME
+  ? `https://${CODESPACE_NAME}-8000.app.github.dev`
+  : `http://localhost:${PORT}`;
 
 // Middleware
 app.use(cors());
@@ -22,10 +27,11 @@ connectDatabase().catch((error) => {
 
 // Basic root route
 app.get('/', (req, res) => {
-  res.json({ message: 'OctoFit Tracker API Server' });
+  res.json({ message: 'OctoFit Tracker API Server', baseUrl });
 });
 
 // Start Server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log(`Base URL: ${baseUrl}`);
 });

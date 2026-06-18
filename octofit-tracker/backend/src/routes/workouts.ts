@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { listWorkouts, getWorkoutById, createWorkout } from '../controllers/workoutController';
+import { listWorkouts, getWorkoutById, createWorkout } from '../controllers/workoutController.ts';
 
 const router = Router();
 

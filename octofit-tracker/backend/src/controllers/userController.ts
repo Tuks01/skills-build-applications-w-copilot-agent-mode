@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import { User } from '../models/User';
+import type { Request, Response } from 'express';
+import { User } from '../models/User.ts';
 
 export const listUsers = async (req: Request, res: Response) => {
   try {

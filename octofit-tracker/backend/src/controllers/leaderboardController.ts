@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import { Activity } from '../models/Activity';
+import type { Request, Response } from 'express';
+import { Activity } from '../models/Activity.ts';
 
 export const getLeaderboard = async (req: Request, res: Response) => {
   try {

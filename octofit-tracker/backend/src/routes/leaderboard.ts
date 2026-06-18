@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getLeaderboard } from '../controllers/leaderboardController';
+import { getLeaderboard } from '../controllers/leaderboardController.ts';
 
 const router = Router();
 
