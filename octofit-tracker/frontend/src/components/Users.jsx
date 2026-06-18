@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react'
 
-const getBaseApiUrl = () => {
+const getUsersEndpoint = () => {
   const codespaceName = import.meta.env.VITE_CODESPACE_NAME
-  if (!codespaceName) {
-    return 'http://localhost:8000/api'
-  }
-  return `https://${codespaceName}-8000.app.github.dev/api`
+  return codespaceName
+    ? `https://${codespaceName}-8000.app.github.dev/api/users/`
+    : 'http://localhost:8000/api/users/'
 }
 
-const apiUrl = getBaseApiUrl()
+const usersEndpoint = getUsersEndpoint()
 
 function Users() {
   const [users, setUsers] = useState([])
@@ -16,7 +15,7 @@ function Users() {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch(`${apiUrl}/users/`)
+    fetch(usersEndpoint)
       .then((res) => res.json())
       .then((data) =>
         setUsers(
@@ -33,7 +32,7 @@ function Users() {
     <div>
       <h2>Users</h2>
       <p>
-        API: <code>{`${apiUrl}/users/`}</code>
+        API: <code>{usersEndpoint}</code>
       </p>
       {loading && <p>Loading users…</p>}
       {error && <p className="error">{error}</p>}

@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react'
 
-const getBaseApiUrl = () => {
+const getTeamsEndpoint = () => {
   const codespaceName = import.meta.env.VITE_CODESPACE_NAME
-  if (!codespaceName) {
-    return 'http://localhost:8000/api'
-  }
-  return `https://${codespaceName}-8000.app.github.dev/api`
+  return codespaceName
+    ? `https://${codespaceName}-8000.app.github.dev/api/teams/`
+    : 'http://localhost:8000/api/teams/'
 }
 
-const apiUrl = getBaseApiUrl()
+const teamsEndpoint = getTeamsEndpoint()
 
 function Teams() {
   const [teams, setTeams] = useState([])
@@ -16,7 +15,7 @@ function Teams() {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch(`${apiUrl}/teams/`)
+    fetch(teamsEndpoint)
       .then((res) => res.json())
       .then((data) =>
         setTeams(
@@ -33,7 +32,7 @@ function Teams() {
     <div>
       <h2>Teams</h2>
       <p>
-        API: <code>{`${apiUrl}/teams/`}</code>
+        API: <code>{teamsEndpoint}</code>
       </p>
       {loading && <p>Loading teams…</p>}
       {error && <p className="error">{error}</p>}

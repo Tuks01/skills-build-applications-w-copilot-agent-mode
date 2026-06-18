@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react'
 
-const getBaseApiUrl = () => {
+const getActivitiesEndpoint = () => {
   const codespaceName = import.meta.env.VITE_CODESPACE_NAME
-  if (!codespaceName) {
-    return 'http://localhost:8000/api'
-  }
-  return `https://${codespaceName}-8000.app.github.dev/api`
+  return codespaceName
+    ? `https://${codespaceName}-8000.app.github.dev/api/activities/`
+    : 'http://localhost:8000/api/activities/'
 }
 
-const apiUrl = getBaseApiUrl()
+const activitiesEndpoint = getActivitiesEndpoint()
 
 function Activities() {
   const [activities, setActivities] = useState([])
@@ -16,7 +15,7 @@ function Activities() {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch(`${apiUrl}/activities/`)
+    fetch(activitiesEndpoint)
       .then((res) => res.json())
       .then((data) =>
         setActivities(
@@ -33,7 +32,7 @@ function Activities() {
     <div>
       <h2>Activities</h2>
       <p>
-        API: <code>{`${apiUrl}/activities/`}</code>
+        API: <code>{activitiesEndpoint}</code>
       </p>
       {loading && <p>Loading activities…</p>}
       {error && <p className="error">{error}</p>}

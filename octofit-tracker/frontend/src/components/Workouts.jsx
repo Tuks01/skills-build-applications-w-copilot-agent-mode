@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react'
 
-const getBaseApiUrl = () => {
+const getWorkoutsEndpoint = () => {
   const codespaceName = import.meta.env.VITE_CODESPACE_NAME
-  if (!codespaceName) {
-    return 'http://localhost:8000/api'
-  }
-  return `https://${codespaceName}-8000.app.github.dev/api`
+  return codespaceName
+    ? `https://${codespaceName}-8000.app.github.dev/api/workouts/`
+    : 'http://localhost:8000/api/workouts/'
 }
 
-const apiUrl = getBaseApiUrl()
+const workoutsEndpoint = getWorkoutsEndpoint()
 
 function Workouts() {
   const [workouts, setWorkouts] = useState([])
@@ -16,7 +15,7 @@ function Workouts() {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch(`${apiUrl}/workouts/`)
+    fetch(workoutsEndpoint)
       .then((res) => res.json())
       .then((data) =>
         setWorkouts(
@@ -33,7 +32,7 @@ function Workouts() {
     <div>
       <h2>Workouts</h2>
       <p>
-        API: <code>{`${apiUrl}/workouts/`}</code>
+        API: <code>{workoutsEndpoint}</code>
       </p>
       {loading && <p>Loading workouts…</p>}
       {error && <p className="error">{error}</p>}

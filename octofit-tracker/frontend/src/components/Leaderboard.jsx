@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react'
 
-const getBaseApiUrl = () => {
+const getLeaderboardEndpoint = () => {
   const codespaceName = import.meta.env.VITE_CODESPACE_NAME
-  if (!codespaceName) {
-    return 'http://localhost:8000/api'
-  }
-  return `https://${codespaceName}-8000.app.github.dev/api`
+  return codespaceName
+    ? `https://${codespaceName}-8000.app.github.dev/api/leaderboard/`
+    : 'http://localhost:8000/api/leaderboard/'
 }
 
-const apiUrl = getBaseApiUrl()
+const leaderboardEndpoint = getLeaderboardEndpoint()
 
 function Leaderboard() {
   const [entries, setEntries] = useState([])
@@ -16,7 +15,7 @@ function Leaderboard() {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch(`${apiUrl}/leaderboard/`)
+    fetch(leaderboardEndpoint)
       .then((res) => res.json())
       .then((data) =>
         setEntries(
@@ -33,7 +32,7 @@ function Leaderboard() {
     <div>
       <h2>Leaderboard</h2>
       <p>
-        API: <code>{`${apiUrl}/leaderboard/`}</code>
+        API: <code>{leaderboardEndpoint}</code>
       </p>
       {loading && <p>Loading leaderboard…</p>}
       {error && <p className="error">{error}</p>}
