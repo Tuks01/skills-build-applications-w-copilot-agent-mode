@@ -1,7 +1,8 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import apiRouter from './routes/index.js';
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/octofi
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use('/api', apiRouter);
 
 // MongoDB Connection
 mongoose.connect(MONGODB_URI)
@@ -22,13 +24,9 @@ mongoose.connect(MONGODB_URI)
     console.error('MongoDB connection error:', error);
   });
 
-// Routes
-app.get('/', (req: Request, res: Response) => {
+// Basic root route
+app.get('/', (req, res) => {
   res.json({ message: 'OctoFit Tracker API Server' });
-});
-
-app.get('/api/health', (req: Request, res: Response) => {
-  res.json({ status: 'healthy' });
 });
 
 // Start Server
